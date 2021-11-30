@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orderNumber: 1
+  date: 2021-11-24
+  total: 9.99
+  active: false
+
+two:
+  orderNumber: 1
+  date: 2021-11-24
+  total: 9.99
+  active: false
