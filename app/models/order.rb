@@ -51,6 +51,7 @@ class Order < ApplicationRecord
   def valid_order
     if checkOrders
       errors.add(:user, 'You can only have one active order')
+      false
     end
   end
   

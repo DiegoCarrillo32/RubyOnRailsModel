@@ -9,9 +9,9 @@ class User < ApplicationRecord
   validate :valid_date
 
 
-  scope :getActive, -> { where(active: true) }
+  scope :active_users, -> { where(active: true) }
 
-  def toggleActive
+  def toggle_active
 
     if update_attribute(:active, !active)
 
@@ -33,12 +33,14 @@ class User < ApplicationRecord
 
   end
 
-  #Custom validations
+  # Custom validations
   def valid_date
-    if birthDate >= Time.now
+    if birthDate > Time.now
       errors.add(:birthDate, "La fecha de nacimiento no puede ser mayor a la fecha actual")
     end
   end
+
+
 
   protected
 
