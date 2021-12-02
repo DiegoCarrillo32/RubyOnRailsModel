@@ -24,6 +24,12 @@ RSpec.describe User, type: :model do
       expect(user).to eq(false)
     end
 
+    it 'should not permit repeated emails' do
+      User.new(name:"diego", lastName: 'last', password:'123456', email:'dcgreenforest@gmail.com', birthDate:birthDate).save
+      user = User.new(name:"diego", lastName: 'last', password:'123456', email:'dcgreenforest@gmail.com', birthDate:birthDate).save
+      expect(user).to eq(false)
+    end
+
 
 
 

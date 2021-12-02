@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   has_many :order_items
   # total, orderNumber no estan en validates porque se generan automaticamente
   validates :date, :active, presence: true
-  validate :valid_order
+  validate :valid_order, :valid_date
 
 
   def checkOrders
@@ -51,6 +51,13 @@ class Order < ApplicationRecord
   def valid_order
     if checkOrders
       errors.add(:user, 'You can only have one active order')
+      false
+    end
+  end
+
+  def valid_date
+    if date > Time.now
+      errors.add(:date, 'Date must be in the past')
       false
     end
   end
