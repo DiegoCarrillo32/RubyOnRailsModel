@@ -1,55 +1,31 @@
 class Order < ApplicationRecord
-  before_save :set_default
   belongs_to :user
-  has_many :order_items
-  # total, orderNumber no estan en validates porque se generan automaticamente
-  validates :date, :active, presence: true
+  validates :date, :active, :total, presence: true
   validate :valid_order, :valid_date
+  has_many :order_items
+  has_many :products, through: :order_items
+  before_save :set_default, :total_price
 
-
-  def checkOrders
-    # si las ordenes del usuario estan activas , no se puede crear una nueva
-    # devuelve true si hay ordenes activas
+  def check_orders
     if Order.where(active: true).where(user_id: user.id).count > 0
       true
-
     else
       false
     end
-
   end
 
-
-
-
-  def toggleActive
-
-    if update_attribute(:active, !active)
-
+  def toggle_active
+    if update(active: !active)
       true
-
     else
-
       false
-
     end
-
   end
 
-  def totalPrice
-
-
-    if order_items.count > 0
-      order_items.sum { |obj| obj.total }
-    else
-      0
-    end
-
-  end
   private
 
   def valid_order
-    if checkOrders
+    if check_orders
       errors.add(:user, 'You can only have one active order')
       false
     end
@@ -61,13 +37,16 @@ class Order < ApplicationRecord
       false
     end
   end
-  
-  protected
-  
+
+  def total_price
+    if order_items.count > 0
+      self.total = order_items.sum { |obj| obj.total }
+    else
+      0
+    end
+  end
+
   def set_default
-
     self.orderNumber = (SecureRandom.random_number * (10**5)).round
-    self.total = totalPrice
-
   end
 end
