@@ -4,7 +4,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.integer :orderNumber
       t.date :date
       t.decimal :total
-      t.boolean :active, default: true
+      t.boolean :active
       t.belongs_to :user, null: false, foreign_key: true
 
       t.timestamps

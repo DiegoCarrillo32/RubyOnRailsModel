@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_161736) do
+ActiveRecord::Schema.define(version: 2021_12_07_160758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_11_24_161736) do
     t.integer "orderNumber"
     t.date "date"
     t.decimal "total"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2021_11_24_161736) do
     t.string "lastName"
     t.date "birthDate"
     t.string "password"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
